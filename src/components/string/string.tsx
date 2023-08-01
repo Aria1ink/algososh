@@ -37,9 +37,9 @@ export const StringComponent: React.FC = () => {
       secondElement = inputData.length - i -1;
       tempArray[i].color = ElementStates.Modified;
       tempArray[secondElement].color = ElementStates.Modified;
-      await sleep(1500);
+      await sleep(1000);
       setOutData([...tempArray]);
-      await sleep(1500);
+      await sleep(1000);
       tempArray = switchElements(i, secondElement, tempArray);
       setOutData([...tempArray]);
     }
