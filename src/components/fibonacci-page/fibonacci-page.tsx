@@ -4,6 +4,7 @@ import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import styles from "./fibonacci-page.module.css";
 import { Circle } from "../ui/circle/circle";
+import { sleep } from "../../tools/tools";
 
 export const FibonacciPage: React.FC = () => {
   const [inputData, setInputData] = useState<string>('');
@@ -24,8 +25,9 @@ export const FibonacciPage: React.FC = () => {
         } else {
           resultArray.push(resultArray[i - 2] + resultArray[i - 1])
         }
+        setOutData([...resultArray]);
+        await sleep(500);
       }
-      setOutData(resultArray);
     }
     setIsStarted(false);
   }
