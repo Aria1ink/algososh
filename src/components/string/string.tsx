@@ -6,12 +6,11 @@ import { Circle } from "../ui/circle/circle";
 import { ElementStates } from "../../types/element-states";
 import { sleep } from "../../tools/tools";
 import styles from "./string.module.css";
-
-type OutputArray = {value: string, color: ElementStates}[];
+import type { OutputArray } from "../../types/outputData";
 
 export const StringComponent: React.FC = () => {
   const [inputData, setInputData] = useState<string>('');
-  const [outData, setOutData] =  useState<OutputArray>([]);
+  const [outData, setOutData] =  useState<OutputArray<string>>([]);
   const [isStarted, setIsStarted] = useState<boolean>(false);
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputData(e.target.value)
@@ -19,7 +18,7 @@ export const StringComponent: React.FC = () => {
 
   const onClickButton = async () => {
     setIsStarted(true);
-    let tempArray: OutputArray = [];
+    let tempArray: OutputArray<string> = [];
     let index: number | undefined;
     let secondElement: number;
 
@@ -46,7 +45,7 @@ export const StringComponent: React.FC = () => {
     setIsStarted(false);
     tempArray = [];
   }
-  const switchElements = (first: number, second: number, array: OutputArray)=> {
+  const switchElements = (first: number, second: number, array: OutputArray<string>)=> {
     const tempElementValue = array[first].value;
       array[first].value = array[second].value;
       array[second].value = tempElementValue;
