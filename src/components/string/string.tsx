@@ -4,7 +4,7 @@ import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { ElementStates } from "../../types/element-states";
-import { sleep } from "../../tools/tools";
+import { sleep, switchArrayElements } from "../../tools/tools";
 import styles from "./string.module.css";
 import type { OutputArray } from "../../types/outputData";
 
@@ -39,17 +39,11 @@ export const StringComponent: React.FC = () => {
       await sleep(1000);
       setOutData([...tempArray]);
       await sleep(1000);
-      tempArray = switchElements(i, secondElement, tempArray);
+      tempArray = switchArrayElements(i, secondElement, tempArray);
       setOutData([...tempArray]);
     }
     setIsStarted(false);
     tempArray = [];
-  }
-  const switchElements = (first: number, second: number, array: OutputArray<string>)=> {
-    const tempElementValue = array[first].value;
-      array[first].value = array[second].value;
-      array[second].value = tempElementValue;
-      return array;
   }
 
   return (
