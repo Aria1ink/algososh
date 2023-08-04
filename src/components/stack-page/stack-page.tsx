@@ -39,6 +39,7 @@ export const StackPage: React.FC = () => {
     clearStack();
     setIsStarted(false);
   }
+  
   return (
     <SolutionLayout title="Стек">
       <div className={styles.container}>

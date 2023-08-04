@@ -4,7 +4,7 @@ export function useStack<T> (initValue: T[]): [T[], (element: T) => void, () => 
   const [stack, setStack] = useState<T[]>(initValue);
 
   const push = (element:T) => {
-    setStack((stack) => [...stack, element])
+    setStack((stack) => [...stack, element]);
   }
   const pop = () => {
     const tempArray = stack;
