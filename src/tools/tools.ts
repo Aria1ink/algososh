@@ -12,8 +12,8 @@ export function switchArrayElements <T extends string | number> (first: number, 
     return array;
 }
 
-export function createRandomArray() {
-  const arraySize = randomInteger(3, 17);
+export function createRandomArray(max: number = 17) {
+  const arraySize = randomInteger(3, max);
   const resultArray: OutputArray<number> = [];
   for (let i = 0; i < arraySize; i++) {
     resultArray.push({value: randomInteger(0, 100), color: ElementStates.Default});
