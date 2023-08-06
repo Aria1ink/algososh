@@ -1,57 +1,66 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Button } from "../ui/button/button";
 import { Input } from "../ui/input/input";
 import { Circle } from "../ui/circle/circle";
 import { sleep } from "../../tools/tools";
-import { useQueue } from "../../hooks/queue";
 import { ElementStates } from "../../types/element-states";
 import styles from "./queue-page.module.css";
+import QueueArr from "./queue";
 
 export const QueuePage: React.FC = () => {
-
-  const [queue, head, tail, enqueue, dequeue, clear] = useQueue(["", "", "", "", "", ""]);
+  const [queue,] = useState(() => new QueueArr<string>());
+  const [head, setHead] = useState<number | null>(null);
+  const [tail, setTail] = useState<number | null>(null);
   const [inputData, setInputData] = useState<string>('');
+  const [outputData, setOutputData] = useState<string[]>([]);
   const [itemHighlight, setitemHighlight] =  useState<number | null>(null);
-  const [isStarted, setIsStarted] = useState<boolean>(false);
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputData(e.target.value)
   }
   const onClickAdd = async () => {
-    if (inputData && inputData !== "") {
-      setIsStarted(true);
+    if (inputData && inputData !== "" && head != outputData.length -1 && tail != outputData.length -1) {
       tail !== null ? setitemHighlight(tail + 1): setitemHighlight(0);
-      setInputData.length > 0 && enqueue(inputData);
+      queue.enqueue(inputData);
+      setHead(queue.getHead);
+      setTail(queue.getTail);
+      setOutputData([...queue.getElements()]);
       setInputData('');
       await sleep(500);
       setitemHighlight(null);
-      setIsStarted(false);
+
     }
   }
   const onClickDel = async () => {
-    setIsStarted(true);
     setitemHighlight(head);
     await sleep(500);
     setitemHighlight(null);
-    dequeue();
-    setIsStarted(false);
+    queue.dequeue();
+    setHead(queue.getHead);
+    setTail(queue.getTail);
+    setOutputData([...queue.getElements()]);
   }
   const onClickClear = async () => {
-    setIsStarted(true);
-    clear();
-    setIsStarted(false);
+    queue.clear();
+    setOutputData([...queue.getElements()]);
+    setHead(queue.getHead);
+    setTail(queue.getTail);
   }
+
+  useEffect(() => {
+    setOutputData([...queue.getElements()]);
+  }, [])
   
   return (
     <SolutionLayout title="Очередь">
       <div className={styles.container}>
         <Input maxLength={4} isLimitText={true} value={inputData} onChange={onChangeInput}/>
-        <Button text="Добавить" onClick={onClickAdd} isLoader={isStarted} />
-        <Button text="Удалить" onClick={onClickDel} isLoader={isStarted} />
-        <Button text="Очистить" onClick={onClickClear} isLoader={isStarted} />
+        <Button text="Добавить" onClick={onClickAdd} disabled={!inputData || inputData === ""} />
+        <Button text="Удалить" onClick={onClickDel} disabled={head === null || tail === null}/>
+        <Button text="Очистить" onClick={onClickClear} disabled={head === null} />
       </div>
       <div className={styles.container}>
-        {queue && queue.map((element, index) => {
+        {outputData && outputData.map((element, index) => {
           return(
             <Circle 
               state={itemHighlight === index ? ElementStates.Changing : ElementStates.Default} 
@@ -60,7 +69,7 @@ export const QueuePage: React.FC = () => {
               index={index}
               head={index === head ? "head" : ""}
               tail={index === tail ? "tail" : ""}
-              />
+            />
           )
         })}
       </div>
