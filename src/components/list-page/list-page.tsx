@@ -38,36 +38,42 @@ export const ListPage: React.FC = () => {
     setInputIndex(e.target.value)
   }
   const addToHead = async () => {
-    list.addToStart({value: inputValue, color: ElementStates.Default});
-    setElementToAdd({index: 0, value: inputValue, byIndex: false});
-    await sleep(500);
-    updateOutput();
-    setElementChanged(0);
-    setElementToAdd(changedElementDefaultValue);
-    await sleep(500);
-    setElementChanged(null);
+    if (inputValue && inputValue != "") {
+      list.addToStart({value: inputValue, color: ElementStates.Default});
+      setElementToAdd({index: 0, value: inputValue, byIndex: false});
+      await sleep(500);
+      updateOutput();
+      setElementChanged(0);
+      setElementToAdd(changedElementDefaultValue);
+      await sleep(500);
+      setElementChanged(null);
+    }
   }
   const addToTail = async () => {
-    list.addToEnd({value: inputValue, color: ElementStates.Default});
-    setElementToAdd({index: outData.length - 1, value: inputValue, byIndex: false});
-    await sleep(500);
-    updateOutput();
-    setElementChanged(outData.length);
-    setElementToAdd(changedElementDefaultValue);
-    await sleep(500);
-    setElementChanged(null);
+    if (inputValue && inputValue != "") {
+      list.addToEnd({value: inputValue, color: ElementStates.Default});
+      setElementToAdd({index: outData.length - 1, value: inputValue, byIndex: false});
+      await sleep(500);
+      updateOutput();
+      setElementChanged(outData.length);
+      setElementToAdd(changedElementDefaultValue);
+      await sleep(500);
+      setElementChanged(null);
+    }
   }
   const addByIndex = async() => {
-    list.addByIndex({value: inputValue, color: ElementStates.Default}, Number(inputIndex));
-    for ( let i = 0; i <= Number(inputIndex); i++) {
-      setElementToAdd({index: i, value: inputValue, byIndex: true});
+    if (inputValue && inputValue != "" && inputIndex && inputIndex != "") {
+      list.addByIndex({value: inputValue, color: ElementStates.Default}, Number(inputIndex));
+      for ( let i = 0; i <= Number(inputIndex); i++) {
+        setElementToAdd({index: i, value: inputValue, byIndex: true});
+        await sleep(500);
+      }
+      updateOutput();
+      setElementChanged(Number(inputIndex));
+      setElementToAdd(changedElementDefaultValue);
       await sleep(500);
+      setElementChanged(null);
     }
-    updateOutput();
-    setElementChanged(Number(inputIndex));
-    setElementToAdd(changedElementDefaultValue);
-    await sleep(500);
-    setElementChanged(null);
   }
   const delFromHead = async () => {
     list.delFromStart();
@@ -85,19 +91,20 @@ export const ListPage: React.FC = () => {
     await sleep(500);
     updateOutput();
     setElementToDel(changedElementDefaultValue);
-    await sleep(500);
   }
   const delByIndex = async () => {
-    list.delByIndex(Number(inputIndex));
-    for ( let i = 0; i < Number(inputIndex); i++) {
-      setElementToDel({index: i, value: null, byIndex: true});
+    if ( inputIndex && inputIndex != "" && Number(inputIndex) <= maxIndex) {
+      list.delByIndex(Number(inputIndex));
+      for ( let i = 0; i < Number(inputIndex); i++) {
+        setElementToDel({index: i, value: null, byIndex: true});
+        await sleep(500);
+      }
+      setElementToDel({index: Number(inputIndex), value: outData[Number(inputIndex)].value, byIndex: true});
+      setOutData([...delArrayElementValue(Number(inputIndex), outData)]);
       await sleep(500);
+      updateOutput();
+      setElementToDel(changedElementDefaultValue);
     }
-    setElementToDel({index: Number(inputIndex), value: outData[Number(inputIndex)].value, byIndex: true});
-    setOutData([...delArrayElementValue(Number(inputIndex), outData)]);
-    await sleep(500);
-    updateOutput();
-    setElementToDel(changedElementDefaultValue);
   }
   const updateOutput = () => {
     const tempArray = list.getAsArray();
