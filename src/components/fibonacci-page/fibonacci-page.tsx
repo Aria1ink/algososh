@@ -26,6 +26,7 @@ export const FibonacciPage: React.FC = () => {
           resultArray.push(resultArray[i - 2] + resultArray[i - 1])
         }
         setOutData([...resultArray]);
+        setInputData("");
         await sleep(500);
       }
     }
