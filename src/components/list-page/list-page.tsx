@@ -38,7 +38,7 @@ export const ListPage: React.FC = () => {
     setInputIndex(e.target.value)
   }
   const addToHead = async () => {
-    if (inputValue && inputValue != "") {
+    if (inputValue && inputValue !== "") {
       setIsStarted("addHead");
       list.addToStart({value: inputValue, color: ElementStates.Default});
       setElementToAdd({index: 0, value: inputValue, byIndex: false});
@@ -53,7 +53,7 @@ export const ListPage: React.FC = () => {
     }
   }
   const addToTail = async () => {
-    if (inputValue && inputValue != "") {
+    if (inputValue && inputValue !== "") {
       setIsStarted("addTail");
       list.addToEnd({value: inputValue, color: ElementStates.Default});
       setElementToAdd({index: outData.length - 1, value: inputValue, byIndex: false});
@@ -68,7 +68,7 @@ export const ListPage: React.FC = () => {
     }
   }
   const addByIndex = async() => {
-    if (inputValue && inputValue != "" && inputIndex && inputIndex != "") {
+    if (inputValue && inputValue !== "" && inputIndex && inputIndex !== "") {
       setIsStarted("addByIndex");
       list.addByIndex({value: inputValue, color: ElementStates.Default}, Number(inputIndex));
       for ( let i = 0; i <= Number(inputIndex); i++) {
@@ -107,7 +107,7 @@ export const ListPage: React.FC = () => {
     setIsStarted(null);
   }
   const delByIndex = async () => {
-    if ( inputIndex && inputIndex != "" && Number(inputIndex) <= maxIndex) {
+    if ( inputIndex && inputIndex !== "" && Number(inputIndex) <= maxIndex) {
       setIsStarted("delByIndex");
       list.delByIndex(Number(inputIndex));
       for ( let i = 0; i < Number(inputIndex); i++) {
@@ -132,6 +132,8 @@ export const ListPage: React.FC = () => {
   }
   useEffect(() => {
     updateOutput();
+    // Вызов только при монтировании компонента.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
   return (
@@ -149,25 +151,25 @@ export const ListPage: React.FC = () => {
         <Button 
           text="Добавить в head" 
           onClick={addToHead} 
-          disabled={isStarted != "addHead" && isStarted != null || inputValue === ""}
+          disabled={(isStarted !== "addHead" && isStarted !== null) || inputValue === ""}
           isLoader={isStarted === "addHead"}
         />
         <Button 
           text="Добавить в tail" 
           onClick={addToTail} 
-          disabled={isStarted != "addTail" && isStarted != null || inputValue === ""}
+          disabled={(isStarted !== "addTail" && isStarted !== null) || inputValue === ""}
           isLoader={isStarted === "addTail"}
         />
         <Button 
           text="Удалить из head" 
           onClick={delFromHead} 
-          disabled={isStarted != "delHead" && isStarted != null} 
+          disabled={isStarted !== "delHead" && isStarted !== null} 
           isLoader={isStarted === "delHead"}
         />
         <Button 
           text="Удалить из tail" 
           onClick={delFromTail} 
-          disabled={isStarted != "delTail" && isStarted != null}
+          disabled={isStarted !== "delTail" && isStarted !== null}
           isLoader={isStarted === "delTail"}
         />
       </div>
@@ -184,13 +186,13 @@ export const ListPage: React.FC = () => {
         <Button 
           text="Добавить по индексу" 
           onClick={addByIndex} 
-          disabled={isStarted != "addByIndex" && isStarted != null || inputValue === "" || inputIndex === ""} 
+          disabled={(isStarted !== "addByIndex" && isStarted !== null) || inputValue === "" || inputIndex === ""} 
           isLoader={isStarted === "addByIndex"}
         />
         <Button 
           text="Удалить по индексу" 
           onClick={delByIndex}
-          disabled={isStarted != "delByIndex" && isStarted != null || inputIndex === ""}
+          disabled={(isStarted !== "delByIndex" && isStarted !== null) || inputIndex === ""}
           isLoader={isStarted === "delByIndex"}
         />
       </div>

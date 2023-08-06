@@ -1,5 +1,5 @@
 import { ElementStates } from "../types/element-states";
-import { OutputArray, OutputArrayElement } from "../types/outputData";
+import { OutputArray } from "../types/outputData";
 
 export function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));

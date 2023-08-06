@@ -12,19 +12,19 @@ import { ElementStates } from "../../types/element-states";
 export const SortingPage: React.FC = () => {
   const [sortingType, setSortingType] = useState<"select" | "bubble">("select");
   const [outData, setOutData] =  useState<OutputArray<string>>([]);
-  const [isStarted, setIsStarted] = useState<boolean>(false);
+  const [isStarted, setIsStarted] = useState<"Ascending" | "Descending" | null >(null);
   const [firstSelected, setFirstSelected] = useState<number | null>();
   const [secondSelected, setSecondSelected] = useState<number | null>();
 
   const onClickAscending = async () => {
-    setIsStarted(true);
-    sortBubble(Direction.Ascending);
-    setIsStarted(false);
+    setIsStarted("Ascending");
+    sortingType === "select" ? await sortSelect(Direction.Ascending) : await sortBubble(Direction.Ascending);
+    setIsStarted(null);
   }
   const onClickDescending = async () => {
-    setIsStarted(true);
-
-    setIsStarted(false);
+    setIsStarted("Descending");
+    sortingType === "bubble" ? await sortSelect(Direction.Descending) : await sortBubble(Direction.Descending);
+    setIsStarted(null);
   }
   const onClickCreateArray = async () => {
     setOutData(createRandomArray());
@@ -90,13 +90,25 @@ export const SortingPage: React.FC = () => {
   return (
     <SolutionLayout title="Сортировка массива">
       <div className={styles.container}>
-        <RadioInput label="Выбор" onSelect={() => {setSortingType("select")}} />
-        <RadioInput label="Пузырек" onSelect={() => {setSortingType("bubble")}} />
+        <RadioInput label="Выбор" name="sortType" value="select" onSelect={() => {setSortingType("select")}} />
+        <RadioInput label="Пузырек" name="sortType" value="bubble" onSelect={() => {setSortingType("bubble")}} />
         <div>
-          <Button text="По возрастанию" sorting={Direction.Ascending} isLoader={isStarted} onClick={onClickAscending} />
-          <Button text="По убыванию" sorting={Direction.Descending} isLoader={isStarted} onClick={onClickDescending} />
+          <Button 
+            text="По возрастанию" 
+            sorting={Direction.Ascending} 
+            isLoader={isStarted === "Ascending"} 
+            onClick={onClickAscending} 
+            disabled={isStarted === "Descending"}
+          />
+          <Button 
+            text="По убыванию" 
+            sorting={Direction.Descending} 
+            isLoader={isStarted === "Descending"} 
+            onClick={onClickDescending} 
+            disabled={isStarted === "Ascending"} 
+          />
         </div>
-        <Button text="Новый массив" onClick={onClickCreateArray} isLoader={isStarted} />
+        <Button text="Новый массив" onClick={onClickCreateArray} disabled={isStarted !== null} />
       </div>
       <div className={styles.container}>
         {outData && outData.map((element, index) => {

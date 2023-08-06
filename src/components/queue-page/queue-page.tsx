@@ -19,7 +19,7 @@ export const QueuePage: React.FC = () => {
     setInputData(e.target.value)
   }
   const onClickAdd = async () => {
-    if (inputData && inputData !== "" && head != outputData.length -1 && tail != outputData.length -1) {
+    if (inputData && inputData !== "" && head !== outputData.length -1 && tail !== outputData.length -1) {
       tail !== null ? setitemHighlight(tail + 1): setitemHighlight(0);
       queue.enqueue(inputData);
       setHead(queue.getHead);
@@ -49,6 +49,8 @@ export const QueuePage: React.FC = () => {
 
   useEffect(() => {
     setOutputData([...queue.getElements()]);
+    // Только при монтировании компонента.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
   return (

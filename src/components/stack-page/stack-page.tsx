@@ -4,60 +4,60 @@ import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import styles from "./stack-page.module.css";
-import { OutputArray } from "../../types/outputData";
-import { useStack } from "../../hooks/stack";
 import { ElementStates } from "../../types/element-states";
 import { sleep } from "../../tools/tools";
+import StackArr from "./stack";
 
 export const StackPage: React.FC = () => {
-  const [stack, pushStack, popStack, clearStack] = useStack<string>([]);
+  const [stack,] = useState(() => new StackArr<string>());
   const [inputData, setInputData] = useState<string>('');
+  const [outputData, setOutputData] = useState<string[]>([]);
   const [itemHighlight, setitemHighlight] =  useState<number | null>(null);
-  const [isStarted, setIsStarted] = useState<boolean>(false);
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputData(e.target.value)
   }
   const onClickAdd = async () => {
-    setIsStarted(true);
-    setitemHighlight(stack.length);
-    setInputData.length > 0 && pushStack(inputData);
-    setInputData('');
-    await sleep(500);
-    setitemHighlight(null);
-    setIsStarted(false);
+    if (inputData && inputData !== "") {
+      setitemHighlight(outputData.length);
+      stack.push(inputData);
+      setOutputData([...stack.getElements()]);
+      setInputData('');
+      await sleep(500);
+      setitemHighlight(null);
+    }
   }
   const onClickDel = async () => {
-    setIsStarted(true);
-    setitemHighlight(stack.length -1);
-    await sleep(500);
-    setitemHighlight(null);
-    popStack();
-    setIsStarted(false);
+    if (outputData.length > 0) {
+      setitemHighlight(outputData.length -1);
+      await sleep(500);
+      setitemHighlight(null);
+      stack.pop();
+      setOutputData([...stack.getElements()]);
+    }
   }
   const onClickClear = async () => {
-    setIsStarted(true);
-    clearStack();
-    setIsStarted(false);
+    stack.clear();
+    setOutputData([]);
   }
   
   return (
     <SolutionLayout title="Стек">
       <div className={styles.container}>
         <Input maxLength={4} isLimitText={true} value={inputData} onChange={onChangeInput}/>
-        <Button text="Добавить" onClick={onClickAdd} isLoader={isStarted} />
-        <Button text="Удалить" onClick={onClickDel} isLoader={isStarted} />
-        <Button text="Очистить" onClick={onClickClear} isLoader={isStarted} />
+        <Button text="Добавить" onClick={onClickAdd} disabled={!inputData || inputData === ""} />
+        <Button text="Удалить" onClick={onClickDel} disabled={outputData.length === 0} />
+        <Button text="Очистить" onClick={onClickClear} disabled={outputData.length === 0} />
       </div>
       <div className={styles.container}>
-        {stack && stack.map((element, index) => {
+        {outputData && outputData.map((element, index) => {
           return(
             <Circle 
               state={itemHighlight === index ? ElementStates.Changing : ElementStates.Default} 
               letter={element} 
               key={index} 
               index={index}
-              head={index === stack.length - 1 ? "top" : ""}
-              />
+              head={index === outputData.length - 1 ? "top" : ""}
+            />
           )
         })}
       </div>
