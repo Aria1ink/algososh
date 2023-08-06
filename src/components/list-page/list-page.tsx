@@ -192,14 +192,16 @@ export const ListPage: React.FC = () => {
             text="Добавить по индексу" 
             linkedList="big"
             onClick={addByIndex} 
-            disabled={(isStarted !== "addByIndex" && isStarted !== null) || inputValue === "" || inputIndex === ""} 
+            disabled={(isStarted !== "addByIndex" && isStarted !== null) || inputValue === "" || inputIndex === "" || 
+              Number(inputIndex) > maxIndex || Number(inputIndex) < 0} 
             isLoader={isStarted === "addByIndex"}
           />
           <Button 
             text="Удалить по индексу" 
             linkedList="big"
             onClick={delByIndex}
-            disabled={(isStarted !== "delByIndex" && isStarted !== null) || inputIndex === ""}
+            disabled={(isStarted !== "delByIndex" && isStarted !== null) || inputIndex === "" || Number(inputIndex) > maxIndex 
+              || Number(inputIndex) < 0}
             isLoader={isStarted === "delByIndex"}
           />
         </div>

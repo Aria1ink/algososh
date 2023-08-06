@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Button } from "../ui/button/button";
 import styles from "./sorting-page.module.css";
@@ -86,6 +86,10 @@ export const SortingPage: React.FC = () => {
     setFirstSelected(null);
     setSecondSelected(null);
   }
+
+  useEffect(() => {
+    setOutData(createRandomArray());
+  }, []);
 
   return (
     <SolutionLayout title="Сортировка массива">

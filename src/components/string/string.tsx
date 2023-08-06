@@ -50,7 +50,12 @@ export const StringComponent: React.FC = () => {
     <SolutionLayout title="Строка">
       <div className={styles.inputContainer}>
         <Input maxLength={11} isLimitText={true} value={inputData} onChange={onChangeInput}/>
-        <Button text="Развернуть" onClick={onClickButton} isLoader={isStarted} />
+        <Button 
+          text="Развернуть" 
+          onClick={onClickButton} 
+          isLoader={isStarted} 
+          disabled={!inputData || inputData.length < 1} 
+        />
       </div>
       <div className={styles.container}>
         {outData && outData.map((element, index) => {
