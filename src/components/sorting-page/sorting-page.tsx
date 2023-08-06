@@ -89,10 +89,12 @@ export const SortingPage: React.FC = () => {
 
   return (
     <SolutionLayout title="Сортировка массива">
-      <div className={styles.container}>
-        <RadioInput label="Выбор" name="sortType" value="select" onSelect={() => {setSortingType("select")}} />
-        <RadioInput label="Пузырек" name="sortType" value="bubble" onSelect={() => {setSortingType("bubble")}} />
-        <div>
+      <div className={styles.inputContainer}>
+        <div className={styles.radio}>
+          <RadioInput label="Выбор" name="sortType" value="select" onSelect={() => {setSortingType("select")}} />
+          <RadioInput label="Пузырек" name="sortType" value="bubble" onSelect={() => {setSortingType("bubble")}} />
+        </div>
+        <div className={styles.buttons}>
           <Button 
             text="По возрастанию" 
             sorting={Direction.Ascending} 

@@ -42,10 +42,12 @@ export const StackPage: React.FC = () => {
   
   return (
     <SolutionLayout title="Стек">
-      <div className={styles.container}>
-        <Input maxLength={4} isLimitText={true} value={inputData} onChange={onChangeInput}/>
-        <Button text="Добавить" onClick={onClickAdd} disabled={!inputData || inputData === ""} />
-        <Button text="Удалить" onClick={onClickDel} disabled={outputData.length === 0} />
+      <div className={styles.inputContainer}>
+      <div className={styles.buttons}>
+          <Input maxLength={4} isLimitText={true} value={inputData} onChange={onChangeInput}/>
+          <Button text="Добавить" onClick={onClickAdd} disabled={!inputData || inputData === ""} />
+          <Button text="Удалить" onClick={onClickDel} disabled={outputData.length === 0} />
+        </div>
         <Button text="Очистить" onClick={onClickClear} disabled={outputData.length === 0} />
       </div>
       <div className={styles.container}>

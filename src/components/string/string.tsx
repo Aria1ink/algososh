@@ -48,7 +48,7 @@ export const StringComponent: React.FC = () => {
 
   return (
     <SolutionLayout title="Строка">
-      <div className={styles.container}>
+      <div className={styles.inputContainer}>
         <Input maxLength={11} isLimitText={true} value={inputData} onChange={onChangeInput}/>
         <Button text="Развернуть" onClick={onClickButton} isLoader={isStarted} />
       </div>

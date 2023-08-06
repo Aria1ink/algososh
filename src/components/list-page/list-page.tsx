@@ -139,7 +139,7 @@ export const ListPage: React.FC = () => {
   return (
     <SolutionLayout title="Связный список">
 
-      <div className={styles.container}>
+      <div className={styles.inputContainer}>
         <Input 
           placeholder="Введите значение" 
           maxLength={4} 
@@ -150,30 +150,34 @@ export const ListPage: React.FC = () => {
         />
         <Button 
           text="Добавить в head" 
+          linkedList="small"
           onClick={addToHead} 
           disabled={(isStarted !== "addHead" && isStarted !== null) || inputValue === ""}
           isLoader={isStarted === "addHead"}
         />
         <Button 
           text="Добавить в tail" 
+          linkedList="small"
           onClick={addToTail} 
           disabled={(isStarted !== "addTail" && isStarted !== null) || inputValue === ""}
           isLoader={isStarted === "addTail"}
         />
         <Button 
           text="Удалить из head" 
+          linkedList="small"
           onClick={delFromHead} 
           disabled={isStarted !== "delHead" && isStarted !== null} 
           isLoader={isStarted === "delHead"}
         />
         <Button 
           text="Удалить из tail" 
+          linkedList="small"
           onClick={delFromTail} 
           disabled={isStarted !== "delTail" && isStarted !== null}
           isLoader={isStarted === "delTail"}
         />
       </div>
-      <div className={styles.container}>
+      <div className={styles.inputContainer}>
         <Input 
           placeholder="Введите индекс" 
           value={inputIndex} 
@@ -183,18 +187,22 @@ export const ListPage: React.FC = () => {
           type="number"
           disabled={isStarted != null}
         />
-        <Button 
-          text="Добавить по индексу" 
-          onClick={addByIndex} 
-          disabled={(isStarted !== "addByIndex" && isStarted !== null) || inputValue === "" || inputIndex === ""} 
-          isLoader={isStarted === "addByIndex"}
-        />
-        <Button 
-          text="Удалить по индексу" 
-          onClick={delByIndex}
-          disabled={(isStarted !== "delByIndex" && isStarted !== null) || inputIndex === ""}
-          isLoader={isStarted === "delByIndex"}
-        />
+        <div className={styles.buttons}>
+          <Button 
+            text="Добавить по индексу" 
+            linkedList="big"
+            onClick={addByIndex} 
+            disabled={(isStarted !== "addByIndex" && isStarted !== null) || inputValue === "" || inputIndex === ""} 
+            isLoader={isStarted === "addByIndex"}
+          />
+          <Button 
+            text="Удалить по индексу" 
+            linkedList="big"
+            onClick={delByIndex}
+            disabled={(isStarted !== "delByIndex" && isStarted !== null) || inputIndex === ""}
+            isLoader={isStarted === "delByIndex"}
+          />
+        </div>
       </div>
       <div className={styles.container}>
         {outData && outData.map((element, index) => {

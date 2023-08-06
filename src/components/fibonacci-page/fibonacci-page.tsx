@@ -34,7 +34,7 @@ export const FibonacciPage: React.FC = () => {
   
   return (
     <SolutionLayout title="Последовательность Фибоначчи">
-      <div className={styles.container}>
+      <div className={styles.inputContainer}>
         <Input placeholder="Введите число" type="number"  max={19} isLimitText={true} value={inputData} onChange={onChangeInput}/>
         <Button text="Развернуть" onClick={onClickButton} isLoader={isStarted} />
       </div>

@@ -55,10 +55,12 @@ export const QueuePage: React.FC = () => {
   
   return (
     <SolutionLayout title="Очередь">
-      <div className={styles.container}>
-        <Input maxLength={4} isLimitText={true} value={inputData} onChange={onChangeInput}/>
-        <Button text="Добавить" onClick={onClickAdd} disabled={!inputData || inputData === ""} />
-        <Button text="Удалить" onClick={onClickDel} disabled={head === null || tail === null}/>
+      <div className={styles.inputContainer}>
+        <div className={styles.buttons}>
+          <Input maxLength={4} isLimitText={true} value={inputData} onChange={onChangeInput}/>
+          <Button text="Добавить" onClick={onClickAdd} disabled={!inputData || inputData === ""} />
+          <Button text="Удалить" onClick={onClickDel} disabled={head === null || tail === null}/>
+        </div>
         <Button text="Очистить" onClick={onClickClear} disabled={head === null} />
       </div>
       <div className={styles.container}>
