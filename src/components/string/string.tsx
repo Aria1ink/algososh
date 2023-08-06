@@ -44,6 +44,7 @@ export const StringComponent: React.FC = () => {
     }
     setIsStarted(false);
     tempArray = [];
+    setInputData("");
   }
 
   return (
