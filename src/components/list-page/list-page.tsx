@@ -46,6 +46,7 @@ export const ListPage: React.FC = () => {
       updateOutput();
       setElementChanged(0);
       setElementToAdd(changedElementDefaultValue);
+      setInputValue("");
       await sleep(500);
       setElementChanged(null);
       setIsStarted(null);
@@ -60,6 +61,7 @@ export const ListPage: React.FC = () => {
       updateOutput();
       setElementChanged(outData.length);
       setElementToAdd(changedElementDefaultValue);
+      setInputValue("");
       await sleep(500);
       setElementChanged(null);
       setIsStarted(null);
@@ -76,6 +78,8 @@ export const ListPage: React.FC = () => {
       updateOutput();
       setElementChanged(Number(inputIndex));
       setElementToAdd(changedElementDefaultValue);
+      setInputValue("");
+      setInputIndex("");
       await sleep(500);
       setElementChanged(null);
       setIsStarted(null);
@@ -112,6 +116,7 @@ export const ListPage: React.FC = () => {
       }
       setElementToDel({index: Number(inputIndex), value: outData[Number(inputIndex)].value, byIndex: true});
       setOutData([...delArrayElementValue(Number(inputIndex), outData)]);
+      setInputIndex("");
       await sleep(500);
       updateOutput();
       setElementToDel(changedElementDefaultValue);
