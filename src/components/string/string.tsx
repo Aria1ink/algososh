@@ -13,7 +13,7 @@ export const StringComponent: React.FC = () => {
   const [outData, setOutData] =  useState<OutputArray<string>>([]);
   const [isStarted, setIsStarted] = useState<boolean>(false);
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputData(e.target.value)
+    setInputData(e.target.value);
   }
 
   const onClickButton = async () => {
