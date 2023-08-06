@@ -11,7 +11,7 @@ import { ElementStates } from "../../types/element-states";
 
 export const SortingPage: React.FC = () => {
   const [sortingType, setSortingType] = useState<"select" | "bubble">("select");
-  const [outData, setOutData] =  useState<OutputArray<number>>([]);
+  const [outData, setOutData] =  useState<OutputArray<string>>([]);
   const [isStarted, setIsStarted] = useState<boolean>(false);
   const [firstSelected, setFirstSelected] = useState<number | null>();
   const [secondSelected, setSecondSelected] = useState<number | null>();
@@ -102,7 +102,7 @@ export const SortingPage: React.FC = () => {
         {outData && outData.map((element, index) => {
           return(
             <Column 
-              index={element.value} 
+              index={Number(element.value)} 
               state={firstSelected === index || secondSelected === index ? ElementStates.Changing : element.color} 
               key={index} 
             />
