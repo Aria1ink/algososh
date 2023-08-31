@@ -7,6 +7,7 @@ import { ElementStates } from "../../types/element-states";
 import { sleep, switchArrayElements } from "../../tools/tools";
 import styles from "./string.module.css";
 import type { OutputArray } from "../../types/outputData";
+import { reverseString } from "./utils";
 
 export const StringComponent: React.FC = () => {
   const [inputData, setInputData] = useState<string>('');
@@ -18,32 +19,8 @@ export const StringComponent: React.FC = () => {
 
   const onClickButton = async () => {
     setIsStarted(true);
-    let tempArray: OutputArray<string> = [];
-    let index: number | undefined;
-    let secondElement: number;
-
-    if (inputData.length % 2) {
-      index = inputData.length / 2 - 0.5
-    }
-    for (let i = 0; i < inputData.length; i++) {
-      tempArray[i] = { 
-        value: inputData[i], 
-        color: index && i === index ? ElementStates.Default : ElementStates.Changing 
-      }
-    }
-    setOutData(tempArray);
-    for (let i = 0; i < inputData.length / 2; i++) {
-      secondElement = inputData.length - i -1;
-      tempArray[i].color = ElementStates.Modified;
-      tempArray[secondElement].color = ElementStates.Modified;
-      await sleep(1000);
-      setOutData([...tempArray]);
-      await sleep(1000);
-      tempArray = switchArrayElements(i, secondElement, tempArray);
-      setOutData([...tempArray]);
-    }
+    await reverseString(inputData, setOutData);
     setIsStarted(false);
-    tempArray = [];
     setInputData("");
   }
 
