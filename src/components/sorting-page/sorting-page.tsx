@@ -6,7 +6,7 @@ import { RadioInput } from "../ui/radio-input/radio-input";
 import { Direction } from "../../types/direction";
 import { Column } from "../ui/column/column";
 import type { OutputArray } from "../../types/outputData";
-import { createRandomArray, sleep, switchArrayElements } from "../../tools/tools";
+import { createRandomArray } from "../../tools/tools";
 import { ElementStates } from "../../types/element-states";
 import { sortBubble, sortSelect } from "./utils";
 

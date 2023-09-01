@@ -1,10 +1,8 @@
-import React, { ChangeEventHandler, useState } from "react";
+import React, { useState } from "react";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
-import { ElementStates } from "../../types/element-states";
-import { sleep, switchArrayElements } from "../../tools/tools";
 import styles from "./string.module.css";
 import type { OutputArray } from "../../types/outputData";
 import { reverseString } from "./utils";
