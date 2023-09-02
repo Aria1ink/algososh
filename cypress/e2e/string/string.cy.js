@@ -1,3 +1,5 @@
+import { greenCircle, purpleCircle } from "../../../src/constants/cypress";
+
 describe('Проверка работы страницы "строка"', function () {
   beforeEach(() => {
     cy.visit("/");
@@ -14,22 +16,22 @@ describe('Проверка работы страницы "строка"', functi
     const step2 = '4231';
     const step3 = '4321';
     const step1color = [
-      "rgb(127, 224, 81)",
-      "rgb(210, 82, 225)",
-      "rgb(210, 82, 225)",
-      "rgb(127, 224, 81)",
+      greenCircle,
+      purpleCircle,
+      purpleCircle,
+      greenCircle,
     ];
     const step2color = [
-      "rgb(127, 224, 81)",
-      "rgb(210, 82, 225)",
-      "rgb(210, 82, 225)",
-      "rgb(127, 224, 81)",
+      greenCircle,
+      purpleCircle,
+      purpleCircle,
+      greenCircle,
     ];
     const step3color = [
-      "rgb(127, 224, 81)",
-      "rgb(127, 224, 81)",
-      "rgb(127, 224, 81)",
-      "rgb(127, 224, 81)",
+      greenCircle,
+      greenCircle,
+      greenCircle,
+      greenCircle,
     ];
     cy.get('@input').should('be.empty').type(step1);
     cy.get('@button').click();

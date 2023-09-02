@@ -1,3 +1,5 @@
+import { purpleCircle, blueCircle } from "../../../src/constants/cypress";
+
 describe('Проверка работы страницы "Стек"', function () {
   beforeEach(() => {
     cy.visit("/");
@@ -23,10 +25,10 @@ describe('Проверка работы страницы "Стек"', function (
     cy.get('@input').should('be.empty').type(inputValue);
     cy.get('@add').click();
     cy.get('[class^=circle_circle__]')
-      .should("have.css", "border-color", "rgb(210, 82, 225)")
+      .should("have.css", "border-color", purpleCircle)
       .contains(inputValue)
     cy.get('[class^=circle_circle__]')
-      .should("have.css", "border-color", "rgb(0, 50, 255)")
+      .should("have.css", "border-color", blueCircle)
   });
   it('удаление работает корректно', function () {
     if (cy.get('[class^=circle_circle__]').should("have.length", 0)) {
